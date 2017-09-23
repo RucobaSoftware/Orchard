@@ -1,0 +1,73 @@
+<!-- use Document.cshtml to load js/css -->
+
+@{
+
+    RegisterLink(new Orchard.UI.Resources.LinkEntry { Rel = "shortcut icon", Type = "image/x-icon", Href = Href("../Content/favicon.ico") });
+
+    Layout.Header.Add(New.Navigation(), "5"); // inject the Navigation template into the Header, this template renders Layout.Navigation
+    Layout.Footer.Add(New.User(), "10"); // login and dashboard links
+    Layout.Header.Add(New.Branding(), "1");
+    
+}
+
+@if (Model.Header != null)
+    {
+<header id="masthead">
+@Display(Model.Header)
+</header>
+    }
+<div id="main-wrapper">
+    <div id="container">
+        <div id="main" class="@if (Model.AsideSecond != null) { @Html.Raw("has-aside-second") }">
+            @Display(Model.Content)
+            @if (Model.AsideSecond != null) {
+            <aside id="aside-second" class="aside-second">
+                @Display(Model.AsideSecond)
+            </aside>
+            }
+        </div>
+    </div>
+    @if (Model.TripelFirst != null || Model.TripelSecond != null || Model.TripelThird != null)
+    {
+    <div id="zone-tripel">
+        @if (Model.TripelFirst != null)
+        {
+            @Display(Model.TripelFirst)
+        }
+        @if (Model.TripelSecond != null)
+        {
+            @Display(Model.TripelSecond)
+        }
+        @if (Model.TripelThird != null)
+        {
+            @Display(Model.TripelThird)
+        }
+    </div>
+    }
+</div>
+    @if (Model.Footer != null)
+    {
+    <footer id="footer">
+        <div id="zone-footer-quad">   
+        @if (Model.FooterQuadFirst != null)
+        {
+@Display(Model.FooterQuadFirst)
+        }
+        @if (Model.FooterQuadSecond != null)
+        {
+@Display(Model.FooterQuadSecond)
+        }
+        @if (Model.FooterQuadThird != null)
+        {
+@Display(Model.FooterQuadThird)
+        }
+        @if (Model.FooterQuadFourth != null)
+        {
+@Display(Model.FooterQuadFourth)
+        }
+        </div>
+@Display(Model.Footer)
+        <a href="http://www.webmoco.com/cms_templates" title="Webmoco CMS templates" id="design-by-webmoco"><h5>An Orchard CMS theme designed and developed by Webmoco</h5></a>
+    </footer>
+    }
+    

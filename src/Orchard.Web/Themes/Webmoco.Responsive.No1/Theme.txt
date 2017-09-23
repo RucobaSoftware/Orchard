@@ -1,0 +1,7 @@
+﻿Name: Webmoco Responsive No. 1
+Author: Webmoco Ltd
+Description: Webmoco Responsive No. 1 is a adaptive HTML theme developed for the Orchard CMS by Webmoco. This is the first of a planned series of CMS themes based on the exciting new idea of responsive HTML/CSS design. Responsive layouts use css3 media queries to target a range of different device screens. In practice the theme will provide users of desktop, tablet and mobile devices with an optimised user experience, suited to their screen. Whereas, users with older browsers are served a standard default view. Currently supports ie8+, chrome, & firefox browsers.
+Version: 1.0.3
+Tags: HTML5, CSS3, Responsive HTML, Mobile, Tablet, iPhone, iPad, Modern, one-column, two-column, three-column, cms, personal, business, smart, blog, professional, ebusiness, commerce, blue, e-business, web2.0
+Website: http://www.webmoco.com/cms_templates
+Zones: Header, Navigation, Content, AsideSecond, TripelFirst, TripelSecond, TripelThird, FooterQuadFirst, FooterQuadSecond, FooterQuadThird, FooterQuadFourth, Footer

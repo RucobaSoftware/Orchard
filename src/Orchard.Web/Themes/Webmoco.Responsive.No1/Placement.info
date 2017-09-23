@@ -1,0 +1,9 @@
+﻿<Placement>
+
+  <Match ContentType="BlogPost">
+    <Match DisplayType="Summary">
+      <Place Parts_Comments_Count="-" />
+    </Match>
+  </Match>
+  
+</Placement>

@@ -1,0 +1,10 @@
+﻿@{
+    // Model is Model.Menu from the layout (Layout.Menu)
+    var tag = Tag(Model, "ul");
+}
+<nav>
+    <ul id="menu-main" class="menu menu-main">
+        @* see MenuItem shape template *@
+        @DisplayChildren(Model)
+    </ul>
+</nav>
