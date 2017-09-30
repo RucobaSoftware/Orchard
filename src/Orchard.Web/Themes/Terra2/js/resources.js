@@ -1,0 +1,1 @@
+(function(b){b(document).ready(function(){var a=b("footer").outerHeight(true);b(".theme-wrapper").css("padding-bottom",a);b("footer").addClass("showFooter");setInterval(function(){var d=b("footer").outerHeight(true);b(".theme-wrapper").css("padding-bottom",d)},1000)})})(jQuery);

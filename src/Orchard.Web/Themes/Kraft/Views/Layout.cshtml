@@ -1,0 +1,228 @@
+@functions {
+    // To support the layout classification below. Implementing as a razor function because we can, could otherwise be a Func<string[], string, string> in the code block following.
+    string CalcuClassify(string[] zoneNames, string classNamePrefix) {
+        var zoneCounter = 0;
+        var zoneNumsFilled = string.Join("", zoneNames.Select(zoneName => { ++zoneCounter; return Model[zoneName] != null ? zoneCounter.ToString() : "";}).ToArray());
+        return HasText(zoneNumsFilled) ? classNamePrefix + zoneNumsFilled : "";
+    }
+}
+@{
+    /* Global includes for the theme
+    ***************************************************************/
+	Style.Include("css/font-awesome.min.css");
+
+    Style.Include("site.css");
+	Style.Include("customStyles.css");
+
+
+
+    /* Some useful shortcuts or settings
+    ***************************************************************/
+
+    Func<dynamic, dynamic> Zone = x => Display(x); // Zone as an alias for Display to help make it obvious when we're displaying zones
+
+	
+    /* Last bit of code to prep the layout wrapper
+    ***************************************************************/
+    
+    Model.Id = "layout-wrapper";
+    var tag = Tag(Model, "div"); // using Tag so the layout div gets the classes, id and other attributes added to the Model
+}	<!-- BindTuning head elements-->
+	
+	<script type="text/javascript">
+		if (typeof jQuery == 'undefined') {document.write('<script type="text/javascript" src="@Href("~/Themes/Kraft/js/jquery.min.js")"><' + '/script>');}
+		var style_mobile_path = '@Url.Content(Html.ThemePath(WorkContext.CurrentTheme, "/styles/css/"))'; // path for mobile nav css files, ORX-specific
+	</script>
+	<script type="text/javascript">
+		$('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">');
+	</script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="@Href("~/Themes/Kraft/js/html5shiv.min.js")"></script>
+      <script src="@Href("~/Themes/Kraft/js/respond.min.js")"></script>
+    <![endif]-->
+	<script type="text/javascript" src="@Href("~/Themes/Kraft/js/bootstrap.min.js")"></script>
+<script type="text/javascript" src="@Href("~/Themes/Kraft/js/BTScripts.js")"></script>
+<script type="text/javascript" src="@Href("~/Themes/Kraft/js/resources.js")"></script>
+
+
+	<!--Apply class to body with browser version-->
+	<script type="text/javascript">
+		var nVer = navigator.appVersion; var nAgt = navigator.userAgent; var bN = navigator.appName; var fullV = "" + parseFloat(navigator.appVersion); var majorV = parseInt(navigator.appVersion, 10); var nameOffset, verOffset, ix; if ((verOffset = nAgt.indexOf("Opera")) !== -1) { bN = "Opera"; fullV = nAgt.substring(verOffset + 6); if ((verOffset = nAgt.indexOf("Version")) !== -1) { fullV = nAgt.substring(verOffset + 8) } } else { if ((verOffset = nAgt.indexOf("MSIE")) !== -1) { bN = "IE"; fullV = nAgt.substring(verOffset + 5) } else { if ((verOffset = nAgt.indexOf("Chrome")) !== -1) { bN = "Chrome"; fullV = nAgt.substring(verOffset + 7) } else { if ((verOffset = nAgt.indexOf("Safari")) !== -1) { bN = "Safari"; fullV = nAgt.substring(verOffset + 7); if ((verOffset = nAgt.indexOf("Version")) !== -1) { fullV = nAgt.substring(verOffset + 8) } } else { if ((verOffset = nAgt.indexOf("Firefox")) !== -1) { bN = "Firefox"; fullV = nAgt.substring(verOffset + 8) } else { if ((nameOffset = nAgt.lastIndexOf(" ") + 1) < (verOffset = nAgt.lastIndexOf("/"))) { bN = nAgt.substring(nameOffset, verOffset); fullV = nAgt.substring(verOffset + 1); if (bN.toLowerCase() == bN.toUpperCase()) { bN = navigator.appName } } } } } } } if ((ix = fullV.indexOf(";")) !== -1) { fullV = fullV.substring(0, ix) } if ((ix = fullV.indexOf(" ")) !== -1) { fullV = fullV.substring(0, ix) } majorV = parseInt("" + fullV, 10); if (isNaN(majorV)) { fullV = "" + parseFloat(navigator.appVersion); majorV = parseInt(navigator.appVersion, 10) } 
+		document.getElementsByTagName("body")[0].className += " " +  bN + " " +  bN + majorV + " cmsORX cmsORX1 BT-pk";
+	</script>
+	<div class="themeWrapper">
+		<header class="navbar navbar-static-top" role="banner">
+			<div class="container sp-fullwidth">
+				<div class="row">
+					<div class="col-sm-12 text-center">
+						<div class="navbar-header">
+							<button id="offcanvasButton" class="offcanvas-toggle" type="button"><i class="fa fa-chevron-right"></i></button>
+							<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
+						</div>
+						<nav class="collapse navbar-collapse" role="navigation">
+							<div id="MenuH">@if (Model.Navigation != null) {@Display(Model.Navigation)}</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="header-bar">
+			<div class="container">
+				<div class="row">
+					<div id="TitleCol" class="col-sm-4">
+						<span id="Featured">
+						</span>
+					</div>
+					<div id="LogoCol" class="col-sm-4">
+						<span id="Logo">
+							<h1><a href="~/" title="Go to Home">@WorkContext.CurrentSite.SiteName</a></h1>
+						</span>
+					</div>
+					<div id="SearchCol" class="col-sm-4">
+						<span id="Search">
+							<div id="SearchBar">@using (Html.BeginForm("index", "search", new { area = "Orchard.Search" }, FormMethod.Get, new { @class = "search-form" })){<fieldset><input type="text" value="" name="q" id="q"><button type="submit"></button></fieldset>}</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="paper-shadow"></div>
+
+		
+
+		<div id="bt-slider">@if (Model.Header != null){<div id="Header">@Display(Model.Header)</div>}</div>
+
+		
+
+		<div id="bt-main" role="main">
+			<div class="container">
+				<div class="row row-offcanvas">
+					<div class="col-md-3 col-lg-2" id="bt-sidebar">
+						<div id="MenuV">
+							<script type="text/javascript">$("#MenuV").html($("#MenuH nav").parent().html());</script>
+						</div>
+					</div>
+					<div id="bt-content" class="col-md-9 col-lg-10">
+						<div class="paper-card">
+							<div class="paper-card-body removable">
+								<div class="row">
+	@if (Model.BeforeMain != null){<div class="col-md-12" runat="server" id="BeforeMain">@Display(Model.BeforeMain)</div>}
+</div>
+<div class="row">
+	
+	
+</div>
+<div class="row">
+	
+	
+</div>
+<div class="row">
+	
+	
+</div>
+<div class="row">
+	
+</div>
+<div class="row">
+	
+	
+</div>
+<div class="row">
+	
+	
+</div>
+<div class="row">
+	
+	
+	
+</div>
+<div class="row">
+	
+</div>
+<div class="row">
+	
+	
+	
+</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="bt-fullwidth">
+			@if (Model.BeforeContent != null){<div id="BeforeContent">@Display(Model.BeforeContent)</div>}
+		</div>
+		<div id="bt-tokens">
+			<div class="container">
+				<div class="col-sm-6">
+					<span id="Breadcrumb"></span>
+				</div>
+				<div class="col-sm-6">
+					<span class="SocialZone">@if (Model.Messages != null){<div id="Messages">@Display(Model.Messages)</div>}</span>
+				</div>
+			</div>
+		</div>
+
+
+
+		<footer id="bt-footer">
+			<div class="container">
+				@if (Model.Footer != null){<div id="Footer">@Display(Model.Footer)</div>}
+				<div class="footer-links">
+					<span id="Copyright"><span class="Copyright">&copy; 2017 @WorkContext.CurrentSite.SiteName. All rights reserved.</span></span>
+					<span id="Sitemap"></span>
+					<span id="Privacy"></span>
+					<span id="Terms"></span>
+					<span id="Cart"></span>
+				</div>
+			</div>
+		</footer>
+		<div id="BgLayer1"></div>
+	</div>
+
+	<script type="text/javascript">
+	(function($) {
+		$(document).ready(function() {
+			//MoveSlider
+			if(typeof g_disableCheckoutInEditMode != 'undefined' && !g_disableCheckoutInEditMode) {
+				$('.MoveToSliderZone').appendTo('#bt-slider');
+			}
+		});
+	})(jQuery);
+	</script>
+	<script type="text/javascript" >
+		jQuery(function($) {
+			var optionsH = {
+				Style: "default",
+				EventTrigger: "hover",
+				Type: "easein",
+				Speed: "normal",
+				Appear: "left",
+				MaxWidth: "none",
+				MinWidth: "140",
+				MaxCols: "9999",
+				Collapse: "phone",
+				MaxLinks: "9999"
+			};
+			
+			var optionsV = {
+				Style: "default",
+				EventTrigger: "hover",
+				Type: "easein",
+				Speed: "normal",
+				Appear: "left",
+				Collapse: "phone",
+				MenuVWidth :"normal"
+			};
+
+			$('#MenuH').BindMENU(optionsH);
+			$('#MenuV').BindMENU(optionsV);
+		});
+	</script>
+	<!-- powered by BINDTUNING 2017 // http://www.bindtuning.com -->
+
+@{Style.Include("../Content/Images/Imfuscator.ashx?i=dcdf4193-fc6c-477f-959d-758975670e77-a4e342a6-d139-48be-b1ef-cc873c556e40");}
+
+<script type="text/javascript" src="@Href("~/Themes/Kraft/js/script.js")"></script>
