@@ -1,1 +1,0 @@
-$(".IE8 .collapse-search .btn").click(function(){if($(this).hasClass("activate")){$("#Search").css("display","none");$(this).removeClass("activate")}else{$("#Search").css("display","block").css("width","100%");$(this).addClass("activate")}});
